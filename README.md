@@ -114,7 +114,12 @@ APIs, services, and integrations are intentionally introduced **after** core sem
 
 ## License
 
-This project is released under an open-source license (to be specified).
+DG RE is released under the MIT License.
+
+You are free to use, modify, and distribute this software for research,
+education, and commercial purposes, subject to the terms of the MIT License.
+
+See the LICENSE file for full details.
 
 ---
 
