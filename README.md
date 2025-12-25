@@ -77,7 +77,7 @@ At a high level, DG RE is built around the following ideas:
 
 Mathematically, the system is inspired by state–control formulations of the form:
 
-\[ x(t+1) = F(x(t), u(t), ε(t)) \]
+x(t+1) = F(x(t), u(t), ε(t))
 
 where:
 - `x(t)` is the risk state,
