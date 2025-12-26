@@ -13,8 +13,6 @@ It combines:
 
 All grounded in **differential game theory and dynamic control**, but **usable without deep math background**.
 
----
-
 ## MVP Focus
 
 Current MVP provides:
@@ -26,16 +24,12 @@ Current MVP provides:
 
 APIs, services, and integrations come **later**, once core semantics are stable.
 
----
-
 ## Example Use Cases
 
 * Passenger post-pay or negative balance limits
 * Driver advances and settlement delays
 * Risk-aware matching prioritization
 * Penalty forgiveness policies
-
----
 
 ## Project Structure
 
@@ -48,15 +42,9 @@ dgre_mvp/
 └─ README.md
 ```
 
----
-
 ## License & Disclaimer
 
 Released under the **MIT License**.
 
 DG RE is for **research, educational, and experimental purposes only**.
 It **does not provide financial advice or regulatory-compliant credit decisioning**.
-
----
-
-If you want, I can also **suggest a super-short “one-screen” GitHub description for the repo homepage** that hooks visitors immediately. This is often what attracts stars and contributors. Do you want me to do that too?
