@@ -1,0 +1,36 @@
+I want to create new open source project on credit scoring. How to start?
+---
+How can I use my knowledge on theory of differential Games in this project?
+---
+Assume I will have mvp of credit scoring system. How can I use it in my dg do project?
+---
+Before starting to code I want to study about credit scoring system. What should I read or learn?
+---
+I don't have real data. I don't know regulations and laws. What really can I do on credit scoring system?
+---
+Help me choose the exact project scope
+---
+I will call it DG RE (Differential Games Theory based Risk Engine)
+---
+I have two versions of name for this project:
+1. DG RE - Differential Games Theory-based Risk Engine
+2. DG RME - Differential Games Theory-based Risk Management Engine
+   What are pros and cons of each name?
+---
+System design for DG RE. Start from what?
+---
+Is this phrase correct? "Differential Games Theory–based Risk Engine" Give alternatives
+---
+I have created dgre repository
+---
+I choose MIT License
+---
+What do you know about my DG Do project?
+---
+What is Minimum Validity, Minimal Viable Product for DG Risk Engine?
+---
+Do I need proto-files?
+---
+generate the initial set of proto-files for DG RE MVP, covering: RiskState, Agent/PlatformPolicy, PolicyRequest & PolicyResponse, Simulation control
+---
+For MVP I will do all stuff in Python. Pros and cons?

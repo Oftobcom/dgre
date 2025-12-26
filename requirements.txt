@@ -1,0 +1,8 @@
+grpcio
+grpcio-tools
+protobuf
+fastapi
+uvicorn
+numpy
+pandas
+pytest

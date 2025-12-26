@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package dgre;
+
+// Represents a platform control or policy for risk management
+message PlatformPolicy {
+    string policy_id = 1;
+    string description = 2;
+    repeated string target_agent_ids = 3;  // Agents affected by this policy
+    float adjustment_factor = 4;           // How much the policy modifies risk scores
+    int64 effective_from = 5;              // UTC timestamp
+}

@@ -112,6 +112,25 @@ APIs, services, and integrations are intentionally introduced **after** core sem
 
 ---
 
+## Project Structure
+
+```
+dgre_mvp/
+├─ protos/                  # Your proto-files (Agent.proto, RiskState.proto, etc.)
+├─ services/
+│  ├─ __init__.py
+│  ├─ agent_model.py        # Agent and RiskState classes
+│  ├─ policy_engine.py      # Applies platform policies
+│  ├─ simulation_engine.py  # Runs multi-step simulations
+│  └─ grpc_server.py        # gRPC server wrapper
+├─ examples/
+│  └─ run_example.py        # Example script to run risk evaluation + simulation
+├─ requirements.txt
+└─ README.md
+```
+
+---
+
 ## License
 
 DG RE is released under the MIT License.

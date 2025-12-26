@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package dgre;
+
+import "RiskState.proto";
+
+// Represents an agent (driver or passenger)
+enum AgentType {
+    UNKNOWN = 0;
+    DRIVER = 1;
+    PASSENGER = 2;
+}
+
+message Agent {
+    string agent_id = 1;
+    AgentType type = 2;
+    bool active = 3;                // Is agent currently active in the system
+    RiskState current_risk = 4;     // Latest risk state
+    int64 created_at = 5;           // UTC timestamp of agent creation
+
+    // Type-specific fields
+    oneof type_specific {
+        DriverFields driver_fields = 6;
+        PassengerFields passenger_fields = 7;
+    }
+}
+
+// Fields specific to drivers
+message DriverFields {
+    string vehicle_id = 1;
+    string license_number = 2;
+    string region = 3;        // Optional: driver operating region
+}
+
+// Fields specific to passengers
+message PassengerFields {
+    string payment_method_id = 1;
+    bool subscription_active = 2;
+}

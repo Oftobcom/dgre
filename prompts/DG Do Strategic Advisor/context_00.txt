@@ -1,0 +1,44 @@
+I’m sending a long context. Do not reply until I write: READY. Just acknowledge received.
+
+I’m developing the open-source project "DG Risk Engine (DG RE)", a differential game–based framework for modeling and managing risk in platform systems (e.g., ride-hailing, mobility on demand). It treats user behavior and platform policies as a dynamic control and game-theoretic process, combining explainable scoring models, synthetic data, and time-dependent risk states.
+
+Minimum Viable Product (MVP)
+
+Launch
+Start the system with:
+
+```bash
+docker compose up
+```
+
+Version 0.1 — Must-Have Features
+
+Basic risk state representation for drivers and passengers
+Discrete-time simulation of platform-agent interactions
+Simple risk update rules (e.g., cancellations, delays, fatigue)
+Policy recommendations for driver assignment based on risk
+Synthetic agent generation for testing strategies
+API endpoint for platform integration (`POST /risk/assignment_score`)
+Minimal logging of risk state changes and platform decisions
+Simple dashboard to visualize risk evolution over time
+
+DG RE is intended for research, education, and platform engineering — not for regulated financial decision-making.
+
+Architecture & Stack
+
+Core risk engine implemented in Python (initially for flexibility and rapid prototyping)
+API Gateway in Python FastAPI
+Admin / Visualization Panel in React.js
+State & simulation management using NumPy / Pandas for vectorized operations
+Policy output via REST + WebSocket for real-time integration with DG Do
+Synthetic data generation module to simulate driver and passenger behaviors
+Proto files define all API contracts (risk requests/responses)
+ClickHouse (optional) for telemetry and experiment analytics
+Finite-State Machine represents simplified trip or agent states to integrate with risk evaluation
+
+#Key Notes
+
+DG RE models strategic interactions between platform and agents as a two-player or multi-agent game.
+Designed to be modular, so the platform can query the engine for real-time risk-adjusted recommendations.
+All dynamics are explainable and traceable, not black-box ML models.
+Integration-ready with DG Do Matching Engine, but can also run in offline simulation mode for experiments.
