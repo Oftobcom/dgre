@@ -1,0 +1,83 @@
+// strategic_agent.proto
+
+syntax = "proto3";
+
+package dgre;
+
+import "risk_state.proto";
+
+// A strategic decision-making agent
+message StrategicAgent {
+    // Identity
+    string agent_id = 1;
+    AgentType type = 2;
+    
+    // Current operational state
+    AgentState current_state = 3;
+    
+    // Strategic parameters (private information)
+    StrategicParams params = 4;
+    
+    // Beliefs about other agents and platform
+    repeated AgentBelief agent_beliefs = 5;
+    PlatformBelief platform_belief = 6;
+    
+    // Learning/memory of past interactions
+    repeated HistoricalInteraction history = 7;
+    
+    // Current strategic action space
+    repeated Action available_actions = 8;
+}
+
+// Strategic parameters (agent's "type" in game theory)
+message StrategicParams {
+    // Risk preferences
+    RiskProfile risk_profile = 1;
+    
+    // Strategic sophistication
+    int32 reasoning_depth = 2; // k-level thinking
+    double discount_factor = 3; // For multi-period games
+    double rationality_beta = 4; // Quantal response parameter
+    
+    // Observational capabilities
+    repeated string observable_agents = 5;
+    double observation_noise = 6; // [0,1] quality of observations
+    
+    // Behavioral parameters
+    double reciprocity_bias = 7; // Tit-for-tat tendency
+    double fairness_weight = 8; // Concern for fairness
+}
+
+message RiskProfile {
+    double risk_aversion = 1; // Arrow-Pratt coefficient
+    double loss_aversion = 2; // Prospect theory parameter
+    map<string, double> component_weights = 3; // Weight on different risk types
+}
+
+// Agent's belief about another agent
+message AgentBelief {
+    string agent_id = 1;
+    StrategicParams estimated_params = 2;
+    double belief_confidence = 3;
+    int64 last_observation = 4;
+}
+
+// What the agent remembers
+message HistoricalInteraction {
+    string counterparty_id = 1;
+    repeated Action actions_taken = 2;
+    repeated double payoffs_received = 3;
+    int64 timestamp = 4;
+}
+
+// Agent's state machine with strategic implications
+enum AgentState {
+    AVAILABLE = 0;
+    SEARCHING = 1;
+    NEGOTIATING = 2;
+    COMMITTED = 3;
+    EXECUTING = 4;
+    COMPLETED = 5;
+    DEFECTED = 6; // Strategic defection
+    RETALIATING = 7; // In retaliation phase
+}

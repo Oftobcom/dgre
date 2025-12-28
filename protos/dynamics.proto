@@ -1,0 +1,71 @@
+// dynamics.proto
+
+syntax = "proto3";
+
+package dgre;
+
+// Differential equation governing risk evolution
+message RiskDynamics {
+    string risk_component = 1; // e.g., "driver_risk"
+    
+    // Drift term: f(t, x, u_platform, u_agent)
+    DriftFunction drift = 2;
+    
+    // Diffusion term: σ(t, x)dW
+    DiffusionFunction diffusion = 3;
+    
+    // Jump processes (for rare events)
+    JumpProcess jumps = 4;
+    
+    // Control influences
+    repeated ControlInfluence control_influences = 5;
+    
+    // Cross-effects with other risks
+    repeated CrossEffect cross_effects = 6;
+}
+
+// Control influence from platform/agent actions
+message ControlInfluence {
+    string action_type = 1;
+    double effectiveness = 2; // ∂risk/∂action
+    double max_rate = 3; // Maximum influence per time unit
+    double delay = 4; // Time delay in effect
+}
+
+// Risk spillovers
+message CrossEffect {
+    string source_risk = 1;
+    string target_risk = 2;
+    double coefficient = 3; // ∂target/∂source
+}
+
+// Platform's control problem
+message PlatformControlProblem {
+    // State equation: dx = f(t,x,u)dt + σ(t,x)dW
+    repeated RiskDynamics state_dynamics = 1;
+    
+    // Cost functional: J(u) = E[∫₀ᵀ L(t,x,u)dt + Φ(x(T))]
+    CostFunctional running_cost = 2;
+    TerminalCost terminal_cost = 3;
+    
+    // Constraints
+    repeated ControlConstraint constraints = 4;
+    repeated StateConstraint state_constraints = 5;
+}
+
+// Agent's response problem
+message AgentResponseProblem {
+    string agent_id = 1;
+    
+    // Observes: y = h(x) + noise
+    ObservationModel observation = 2;
+    
+    // Belief update: Bayesian or learning algorithm
+    BeliefUpdateRule belief_update = 3;
+    
+    // Best response computation
+    ResponseFunction response = 4;
+    
+    // Strategic constraints
+    repeated StrategicConstraint constraints = 5;
+}

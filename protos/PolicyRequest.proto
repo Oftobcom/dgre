@@ -1,3 +1,5 @@
+// PolicyRequest.proto
+
 syntax = "proto3";
 
 package dgre;
@@ -7,8 +9,8 @@ import "PlatformPolicy.proto";
 
 // Request to compute risk-adjusted recommendations
 message PolicyRequest {
-    repeated Agent agents = 1;            // Current state of all agents
+    repeated Agent agents = 1; // Current state of all agents
     repeated PlatformPolicy policies = 2; // Active platform policies
-    string platform_context = 3;          // Context info (e.g., city, scenario)
-    int64 simulation_step = 4;            // Optional: step number for simulations
+    string platform_context = 3; // Context info (e.g., city, scenario)
+    int64 simulation_step = 4; // Optional: step number for simulations
 }

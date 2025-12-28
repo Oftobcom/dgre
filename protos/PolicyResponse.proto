@@ -1,3 +1,5 @@
+// PolicyResponse.proto
+
 syntax = "proto3";
 
 package dgre;
@@ -8,5 +10,5 @@ import "RiskState.proto";
 message PolicyResponse {
     repeated string recommended_agent_ids = 1; // Agents selected for intervention
     repeated RiskState updated_risk_states = 2; // Risk states after applying policy
-    string message = 3;                          // Optional human-readable info
+    string message = 3; // Optional human-readable info
 }

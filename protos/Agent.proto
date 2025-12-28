@@ -1,3 +1,5 @@
+// Agent.proto
+
 syntax = "proto3";
 
 package dgre;
@@ -14,9 +16,9 @@ enum AgentType {
 message Agent {
     string agent_id = 1;
     AgentType type = 2;
-    bool active = 3;                // Is agent currently active in the system
-    RiskState current_risk = 4;     // Latest risk state
-    int64 created_at = 5;           // UTC timestamp of agent creation
+    bool active = 3; // Is agent currently active in the system
+    RiskState current_risk = 4; // Latest risk state
+    int64 created_at = 5; // UTC timestamp of agent creation
 
     // Type-specific fields
     oneof type_specific {
@@ -29,7 +31,7 @@ message Agent {
 message DriverFields {
     string vehicle_id = 1;
     string license_number = 2;
-    string region = 3;        // Optional: driver operating region
+    string region = 3; // Optional: driver operating region
 }
 
 // Fields specific to passengers

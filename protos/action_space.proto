@@ -1,0 +1,75 @@
+// action_space.proto
+
+syntax = "proto3";
+
+package dgre;
+
+// A strategic action by platform or agent
+message Action {
+    string action_id = 1;
+    ActorType actor_type = 2; // PLATFORM or AGENT
+    string actor_id = 3;
+    
+    // Action specification
+    ActionType type = 4;
+    map<string, double> parameters = 5; // Action-specific params
+    
+    // Timing
+    double start_time = 6;
+    double duration = 7;
+    
+    // Strategic intent
+    repeated StrategicObjective objectives = 8;
+    
+    // Information content (signaling)
+    repeated Signal signals = 9;
+}
+
+enum ActorType {
+    UNKNOWN_ACTOR = 0;
+    PLATFORM = 1;
+    DRIVER = 2;
+    PASSENGER = 3;
+}
+
+enum ActionType {
+    NO_ACTION = 0;
+    
+    // Platform actions
+    SET_PRICE = 1;
+    ASSIGN_AGENT = 2;
+    OFFER_INCENTIVE = 3;
+    REVEAL_INFORMATION = 4;
+    IMPOSE_CONSTRAINT = 5;
+    BLOCK_AGENT = 6;
+    
+    // Agent actions
+    ACCEPT_OFFER = 10;
+    REJECT_OFFER = 11;
+    CANCEL_TRIP = 12;
+    DELAY_START = 13;
+    CHANGE_DESTINATION = 14;
+    RATE_COUNTERPARTY = 15;
+    DEFECT = 16; // Strategic defection
+    COOPERATE = 17; // Strategic cooperation
+}
+
+message StrategicObjective {
+    enum ObjectiveType {
+        MAXIMIZE_PAYOFF = 0;
+        MINIMIZE_RISK = 1;
+        SIGNAL_TYPE = 2; // Signal agent type
+        BUILD_REPUTATION = 3;
+        RETALIATE = 4;
+        LEARN = 5;
+    }
+    ObjectiveType type = 1;
+    map<string, double> weights = 2; // Objective weights
+}
+
+// Information signal embedded in action
+message Signal {
+    string signal_type = 1; // e.g., "risk_tolerance", "patience"
+    double signal_strength = 2; // How strong the signal is
+    bool credible = 3; // Whether signal is costly/credible
+}

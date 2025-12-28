@@ -1,0 +1,84 @@
+// simulation_engine.proto
+
+syntax = "proto3";
+
+package dgre;
+
+import "game_state.proto";
+import "dynamics.proto";
+
+// A differential game simulation
+message DifferentialGameSimulation {
+    string simulation_id = 1;
+    
+    // Initial conditions
+    GameState initial_state = 2;
+    
+    // Game specification
+    PlatformControlProblem platform_problem = 3;
+    repeated AgentResponseProblem agent_problems = 4;
+    
+    // Simulation parameters
+    SimulationParams params = 5;
+    
+    // Solution method
+    SolutionMethod solution_method = 6;
+}
+
+message SimulationParams {
+    double time_horizon = 1; // T
+    double time_step = 2; // Δt
+    int32 max_iterations = 3;
+    double convergence_tolerance = 4;
+    bool deterministic = 5;
+    int64 random_seed = 6;
+}
+
+enum SolutionMethod {
+    // Open-loop (commitment)
+    OPEN_LOOP_NASH = 0;
+    OPEN_LOOP_STACKELBERG = 1;
+    
+    // Feedback (state-dependent)
+    FEEDBACK_NASH = 2;
+    FEEDBACK_STACKELBERG = 3;
+    
+    // Learning-based
+    FICTITIOUS_PLAY = 4;
+    Q_LEARNING = 5;
+    DEEP_RL = 6;
+}
+
+// Simulation result with full strategic trace
+message StrategicSimulationResult {
+    string simulation_id = 1;
+    SolutionMethod method_used = 2;
+    bool converged = 3;
+    double convergence_error = 4;
+    
+    // Time series of game states
+    repeated GameStateSnapshot state_history = 5;
+    
+    // Actions taken
+    repeated ActionSequence platform_actions = 6;
+    map<string, ActionSequence> agent_actions = 7; // agent_id -> actions
+    
+    // Payoffs achieved
+    repeated PayoffHistory payoff_histories = 8;
+    
+    // Equilibrium analysis
+    EquilibriumMetrics equilibrium_metrics = 9;
+}
+
+message GameStateSnapshot {
+    double time = 1;
+    GameState state = 2;
+    repeated double value_functions = 3; // Platform and agents
+}
+
+message EquilibriumMetrics {
+    double nash_error = 1; // Distance from Nash equilibrium
+    double social_welfare = 2;
+    double price_of_anarchy = 3; // Efficiency loss due to selfishness
+    repeated double regret_values = 4; // Agent regrets
+}

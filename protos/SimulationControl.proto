@@ -1,3 +1,5 @@
+// SimulationControl.proto
+
 syntax = "proto3";
 
 package dgre;
@@ -8,11 +10,11 @@ import "RiskState.proto";
 // Controls a simulation run
 message SimulationControl {
     string simulation_id = 1;
-    int64 step_count = 2;                     // Number of steps to simulate
-    repeated Agent agents = 3;                // Agents in the simulation
-    int64 start_timestamp = 4;                // Start time in UTC
-    bool deterministic = 5;                   // If true, use seed-based reproducible random
-    int64 seed = 6;                           // Optional seed for reproducibility
+    int64 step_count = 2; // Number of steps to simulate
+    repeated Agent agents = 3; // Agents in the simulation
+    int64 start_timestamp = 4; // Start time in UTC
+    bool deterministic = 5; // If true, use seed-based reproducible random
+    int64 seed = 6; // Optional seed for reproducibility
 }
 
 // Simulation results per step

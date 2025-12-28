@@ -1,0 +1,75 @@
+// api.proto
+
+syntax = "proto3";
+
+package dgre;
+
+import "game_state.proto";
+import "action_space.proto";
+import "simulation_engine.proto";
+
+// Real-time strategic advisory request
+message StrategicAdvisoryRequest {
+    GameState current_state = 1;
+    
+    // What the platform is considering
+    repeated Action candidate_actions = 2;
+    
+    // Strategic horizon
+    StrategicHorizon horizon = 3;
+    
+    // What to compute
+    bool compute_best_response = 4;
+    bool compute_equilibrium = 5;
+    bool compute_counterfactuals = 6;
+    
+    // Computational budget
+    double max_computation_time = 7;
+}
+
+message StrategicHorizon {
+    enum HorizonType {
+        IMMEDIATE = 0; // One-shot game
+        SHORT_TERM = 1; // Finite horizon
+        LONG_TERM = 2; // Infinite horizon/repeated
+    }
+    HorizonType type = 1;
+    double horizon_length = 2; // Time units
+}
+
+// The strategic advisory response
+message StrategicAdvisoryResponse {
+    // Recommended action with game-theoretic justification
+    RecommendedAction recommendation = 1;
+    
+    // Predicted agent responses
+    map<string, PredictedResponse> agent_responses = 2;
+    
+    // Equilibrium analysis
+    EquilibriumAnalysis equilibrium = 3;
+    
+    // Risk implications
+    RiskProjection risk_projection = 4;
+    
+    // Confidence metrics
+    RecommendationConfidence confidence = 5;
+    
+    // Alternative scenarios
+    repeated CounterfactualScenario counterfactuals = 6;
+}
+
+message RecommendedAction {
+    Action action = 1;
+    
+    // Game-theoretic justification
+    repeated string equilibrium_concepts = 2; // e.g., ["Subgame Perfect", "Bayesian Nash"]
+    double expected_payoff = 3;
+    double min_regret = 4;
+    
+    // Risk-adjusted value
+    double risk_adjusted_value = 5;
+    
+    // Robustness metrics
+    double worst_case_payoff = 6;
+    double regret_bound = 7;
+}

@@ -1,0 +1,63 @@
+// risk_state.proto
+
+syntax = "proto3";
+
+package dgre;
+
+// Dynamic risk state following stochastic process
+message DynamicRiskState {
+    string agent_id = 1;
+    double timestamp = 2; // Continuous time
+    
+    // Risk components with dynamics
+    map<string, RiskComponent> components = 3;
+    
+    // Risk correlations
+    RiskCorrelationMatrix correlations = 4;
+    
+    // Uncertainty quantification
+    RiskUncertainty uncertainty = 5;
+    
+    // Control history
+    repeated RiskControlInfluence control_history = 6;
+}
+
+// A single risk component with stochastic dynamics
+message RiskComponent {
+    string component_name = 1; // e.g., "driver_fatigue_risk"
+    double current_value = 2; // x(t)
+    
+    // Dynamics specification
+    string dynamics_model = 3; // e.g., "geometric_brownian_motion"
+    map<string, double> dynamics_parameters = 4;
+    
+    // Bounds and constraints
+    double lower_bound = 5;
+    double upper_bound = 6;
+    double alarm_threshold = 7;
+    
+    // Rate of change
+    double drift_rate = 8; // μ
+    double volatility = 9; // σ
+}
+
+// How risks move together
+message RiskCorrelationMatrix {
+    map<string, map<string, double>> correlations = 1; // component_i -> component_j -> ρ
+    map<string, double> systemic_loading = 2; // Loading on systemic risk factor
+}
+
+// Uncertainty in risk estimation
+message RiskUncertainty {
+    map<string, double> estimation_error = 1; // Standard error per component
+    map<string, ConfidenceInterval> confidence_intervals = 2;
+    double model_risk = 3; // Uncertainty from model specification
+}
+
+// How controls have influenced risk
+message RiskControlInfluence {
+    string action_id = 1;
+    string risk_component = 2;
+    double influence_magnitude = 3; // Δrisk/Δaction
+    double effectiveness_decay = 4; // How influence decays over time
+}

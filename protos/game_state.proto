@@ -1,0 +1,64 @@
+// game_state.proto
+
+syntax = "proto3";
+
+package dgre;
+
+import "agent.proto";
+import "risk_state.proto";
+
+// The complete strategic state of the game at time t
+message GameState {
+    string game_id = 1;
+    double timestamp = 2; // Continuous time for differential games
+    
+    // Strategic agents with beliefs and policies
+    repeated StrategicAgent agents = 3;
+    
+    // Platform's strategic position
+    PlatformState platform = 4;
+    
+    // Market/Environment context
+    MarketContext context = 5;
+    
+    // Payoff matrix from previous period
+    PayoffMatrix last_payoffs = 6;
+}
+
+// Platform's strategic state
+message PlatformState {
+    string platform_id = 1;
+    repeated PlatformPolicy active_policies = 2;
+    repeated PlatformBelief agent_beliefs = 3; // Platform's beliefs about agents
+    repeated PlatformCapability capabilities = 4; // What platform can actually do
+}
+
+// Platform's belief about an agent
+message PlatformBelief {
+    string agent_id = 1;
+    StrategicParams estimated_params = 2; // Estimated strategic parameters
+    double belief_confidence = 3; // [0,1] confidence in estimation
+}
+
+// What the platform can actually implement
+message PlatformCapability {
+    enum CapabilityType {
+        UNKNOWN = 0;
+        REAL_TIME_PRICING = 1;
+        AGENT_ASSIGNMENT = 2;
+        SURGE_CONTROL = 3;
+        INCENTIVE_CONTROL = 4;
+        INFORMATION_REVELATION = 5;
+    }
+    CapabilityType type = 1;
+    double max_rate = 2; // Maximum change per time unit
+    double cost = 3; // Implementation cost
+}
+
+// Market conditions
+message MarketContext {
+    double supply_demand_ratio = 1;
+    double network_density = 2; // How connected agents are
+    repeated string regulatory_constraints = 3;
+    GeographicRegion region = 4;
+}

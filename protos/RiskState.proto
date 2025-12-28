@@ -1,12 +1,14 @@
+// RiskState.proto
+
 syntax = "proto3";
 
 package dgre;
 
 // Represents the risk state of a single agent at a specific time
 message RiskState {
-    string agent_id = 1;             // Unique agent identifier
-    float driver_risk = 2;           // Risk score for driver behavior [0,1]
-    float passenger_risk = 3;        // Risk score for passenger behavior [0,1]
-    float platform_risk = 4;         // Risk score for platform exposure [0,1]
-    int64 timestamp = 5;             // Unix epoch UTC timestamp
+    string agent_id = 1; // Unique agent identifier
+    float driver_risk = 2; // Risk score for driver behavior [0,1]
+    float passenger_risk = 3; // Risk score for passenger behavior [0,1]
+    float platform_risk = 4; // Risk score for platform exposure [0,1]
+    int64 timestamp = 5; // Unix epoch UTC timestamp
 }
